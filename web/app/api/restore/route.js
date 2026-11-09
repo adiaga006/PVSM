@@ -22,6 +22,11 @@ export async function POST(req) {
   tx.createIfNotExists({ _id: id, _type: 'auditLog', entries: [] })
     .patch(id, { setIfMissing: { entries: [] } })
     .patch(id, { insert: { after: 'entries[-1]', items: [{ _key: key(), ts: new Date().toISOString(), user: me.name || me.username, username: me.username, role: me.role, act: 'lg_bk', args: [String(P.length)] }] } });
-  await tx.commit({ visibility: 'sync' });
+  try {
+    await tx.commit({ visibility: 'sync' });
+  } catch (e) {
+    console.error(e);
+    return Response.json({ error: 'Lỗi khôi phục: ' + (e.message || e) }, { status: 500 });
+  }
   return Response.json({ ok: true, projects: P.length, installments: I.length });
 }

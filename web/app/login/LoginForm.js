@@ -1,9 +1,11 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function LoginForm() {
   const [err, setErr] = useState('');
   const [busy, setBusy] = useState(false);
+  const themeBtn = useRef(null);
+  useEffect(() => { window.pvsmTheme?.paint(themeBtn.current); }, []);
 
   async function submit(e) {
     e.preventDefault();
@@ -25,7 +27,10 @@ export default function LoginForm() {
 
   return (
     <div className="login">
-      <h1 style={{ marginBottom: 14 }}>PVSM · Track Record</h1>
+      <div className="row" style={{ justifyContent: 'space-between', marginBottom: 14 }}>
+        <h1>PVSM · Track Record</h1>
+        <button ref={themeBtn} type="button" className="theme-btn" style={{ width: 'auto', height: 34 }} aria-label="Giao diện">◐</button>
+      </div>
       <form className="card" onSubmit={submit}>
         <label className="f">Tên đăng nhập<input name="username" type="text" autoComplete="username" autoCapitalize="none" spellCheck={false} required autoFocus /></label>
         <label className="f">Mật khẩu<input name="password" type="password" autoComplete="current-password" required /></label>

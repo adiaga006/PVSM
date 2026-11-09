@@ -95,6 +95,30 @@ Quyền được kiểm tra **ở server**, không chỉ ẩn nút trên giao di
 - **Luôn giữ nguyên**: mã dự án, chứng từ đính kèm, công nợ, và các trường không có trong Excel (IMO, số HĐ, liên hệ, email, điện thoại, payment term…).
 - Màn hình xem trước cho biết số dự án **Mới** và số dự án **Ghi đè** trước khi bấm nhập.
 
+## Tính năng theo SRS v2
+
+| Mục SRS | Trên web |
+|---|---|
+| 2.1 Dữ liệu dự án | Đủ 19 trường. Survey type chọn nhiều thẻ (IS, SS, Docking, sửa chữa sự cố / hành trình…). USD tự tính theo tỷ giá chốt. |
+| 2.2 Nhập liệu | Ctrl+V dán ảnh, kéo thả, chọn file. Gợi ý tự động tên tàu / chủ tàu / quốc gia. Nhập lại tên tàu cũ thì tự điền LOA, Beam, Depth. Viền đỏ ô bắt buộc. |
+| 2.3 Đối soát | Chia đôi màn hình: chứng từ bên trái, form bên phải. **Quét OCR**: tô xanh ô khớp với chứng từ (giá trị HĐ, tên tàu, chủ tàu, ngày, số HĐ), tô vàng ô lệch. OCR chạy trong trình duyệt, chỉ đọc ảnh; với PDF hãy chụp màn hình trang cần đối soát. |
+| 3.1 Bộ lọc | Năm, **quý, tháng, khoảng ngày thi công**, hạng mục, loại tàu, **survey type, LOA / Beam từ–đến**, quốc gia, **chủ tàu**, trạng thái, chỉ dự án lỗi dữ liệu. |
+| 3.2 Xuất Excel | Chọn cột, kẻ khung, tiêu đề đậm, sub-total từng hạng mục, dòng TOTAL dùng công thức SUM. |
+| 4 Công nợ | Mỗi đợt = % × giá trị cơ sở, tự tính lại khi có giá trị quyết toán. Ghi nhận thu, xóa khoản thu nhập nhầm, sửa hạn, xóa đợt. Nhãn màu Trong hạn / Sắp đến hạn (≤7 ngày) / Quá hạn. **Kế toán xuất báo cáo công nợ Excel.** |
+| 4.3 Gợi ý tuần | 4 nhóm: đến hạn trong tuần, vừa hoàn thành chưa thu, đang thi công chưa có dự kiến thu tuần tới, quá hạn > 30 ngày. |
+| 5.2 Phân quyền | Như bảng Phân quyền ở trên, kiểm tra ở server. Audit log ghi người thực hiện. |
+
+## Tốc độ tải
+
+- Mở trang: dữ liệu gửi kèm trong HTML, không phải chờ thêm một lượt gọi API.
+- Audit log chỉ tải khi Admin mở tab Quản trị. Thư viện Excel (~1 MB) chỉ tải khi nhập Excel, thư viện OCR chỉ tải khi bấm Quét OCR.
+- Ảnh thu nhỏ lấy bản 240px do Sanity nén sẵn và chỉ tải khi cuộn tới (lazy load).
+- Cache:
+  - File chứng từ và thư viện tĩnh được cache 1 năm (nội dung gắn với mã băm/phiên bản nên không bao giờ cũ).
+  - `app.js` đổi phiên bản theo mỗi lần deploy.
+  - Dữ liệu dùng ETag: không đổi thì server trả 304.
+- Phân trang: Track Record 30 dòng/trang, danh sách công nợ 30, audit log 50. Ô tìm kiếm chờ người dùng gõ xong mới lọc.
+
 ## File chứng từ (ảnh, PDF)
 
 - Dán bằng Ctrl+V, kéo thả, hoặc chọn file. Ảnh được tự nén sang WebP (cạnh dài tối đa 2400px).
@@ -135,6 +159,6 @@ app/
   api/restore          khôi phục từ bản sao lưu (Admin)
 lib/                   Sanity client, xác thực, lọc trường dữ liệu
 public/app.js          giao diện (Tổng quan, Track Record, Công nợ, Quản trị)
-public/vendor/         SheetJS 0.20.3 để đọc file Excel
+public/vendor/         SheetJS 0.20.3 để đọc file Excel (chỉ tải khi nhập Excel)
 scripts/               tạo tài khoản, kiểm tra Sanity
 ```

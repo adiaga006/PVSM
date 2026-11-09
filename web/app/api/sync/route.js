@@ -20,8 +20,8 @@ export async function POST(req) {
   const delP = b.delProjects || [], delI = b.delInstallments || [];
 
   if (projects.length && !CAN_P.includes(me.role)) return bad('Vai trò của bạn không được sửa dự án', 403);
-  if (installments.length && !CAN_D.includes(me.role)) return bad('Vai trò của bạn không được sửa công nợ', 403);
-  if ((delP.length || delI.length || b.rate !== undefined) && me.role !== 'admin') return bad('Chỉ Admin được xóa vĩnh viễn / đổi tỷ giá', 403);
+  if ((installments.length || delI.length) && !CAN_D.includes(me.role)) return bad('Vai trò của bạn không được sửa công nợ', 403);
+  if ((delP.length || b.rate !== undefined) && me.role !== 'admin') return bad('Chỉ Admin được xóa vĩnh viễn dự án / đổi tỷ giá', 403);
 
   let P, I;
   try { P = projects.map(p => [cleanProject(p), p._rev]); I = installments.map(i => [cleanInstallment(i), i._rev]); }
