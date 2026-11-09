@@ -1,0 +1,24 @@
+{
+  "name": "pvsm-track-record",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "create-user": "node --env-file=.env scripts/create-user.mjs",
+    "check-sanity": "node --env-file=.env scripts/check-sanity.mjs",
+    "hash-password": "node scripts/hash-password.mjs"
+  },
+  "dependencies": {
+    "@sanity/client": "8.15.0",
+    "bcryptjs": "3.0.3",
+    "jose": "6.2.16",
+    "next": "16.4.5",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "engines": {
+    "node": "24.x"
+  }
+}
