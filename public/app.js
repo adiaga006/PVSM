@@ -63,6 +63,9 @@ adv:['Bộ lọc nâng cao','Advanced filters'],f_qtr:['Quý','Quarter'],f_month
 ocr_run:['Quét OCR · tự điền & đối soát','OCR · auto-fill & check'],ocr_busy:['Đang nhận dạng chữ… (lần đầu tải thư viện ~10 MB)','Recognizing… (first run downloads ~10 MB)'],ocr_img:['OCR chỉ đọc được ảnh. Với PDF: chụp màn hình trang cần đối soát rồi nhấn Ctrl + V.','OCR reads images only. For PDFs, take a screenshot of the page and press Ctrl + V.'],ocr_err:['Lỗi OCR: {0}','OCR error: {0}'],ocr_ok:['Khớp với chứng từ: {0}','Matches document: {0}'],ocr_bad:['Không tìm thấy / lệch trên chứng từ: {0}','Not found / differs on document: {0}'],ocr_none:['Chưa có trường nào để đối soát','No fields to check yet'],ocr_txt:['Xem văn bản nhận dạng được','Show recognized text'],ocr_days:['Số ngày sửa chữa','Repair days'],
 ocr_fill:['Đã tự điền {0} trường từ chứng từ: {1}','Auto-filled {0} field(s) from the document: {1}'],ocr_nofill:['Không đọc được thêm thông tin nào để tự điền','Nothing new to auto-fill from the document'],ocr_diff:['Chứng từ ghi khác form: {0}','Document differs from form: {0}'],ocr_over:['Ghi đè theo chứng từ','Overwrite from document'],ocr_tile:['OCR tự điền','OCR auto-fill'],tx_fill:['Đã nhận dạng và điền {0} mục: {1}','Recognized and filled {0} field(s): {1}'],
 px_t:['📋 Dán thông tin để tự điền','📋 Paste info to auto-fill'],px_ph:['Copy đoạn thông tin (hợp đồng, email, báo giá…) rồi Ctrl + V vào đây – hoặc chụp màn hình rồi Ctrl + V ở bất kỳ đâu trên form. Hệ thống tự nhận dạng tên tàu, số HĐ, ngày ký, giá trị, kích thước, chủ tàu, quốc gia… và điền vào các mục còn trống.','Copy text (contract, email, quotation…) and press Ctrl + V here – or take a screenshot and press Ctrl + V anywhere on the form. Vessel name, contract no., date, value, dimensions, owner, country… are recognized and filled into empty fields.'],px_clr:['Xóa','Clear'],
+dp_t:['📋 Dán chứng từ thanh toán để tự ra số liệu','📋 Paste payment document to auto-fill'],dp_ph:['Copy text báo có / ủy nhiệm chi / sao kê / điều khoản thanh toán trong HĐ rồi Ctrl + V vào đây – hoặc chụp màn hình rồi Ctrl + V ở bất kỳ đâu trong tab này. Hệ thống tự nhận dự án (theo tên tàu, số HĐ), số tiền, ngày thu, các đợt %.','Copy a bank credit advice / payment order / statement / contract payment terms and press Ctrl + V here – or take a screenshot and press Ctrl + V anywhere on this tab. The project (by vessel name, contract no.), amount, date and % installments are recognized.'],dp_img:['Hoặc chọn ảnh chụp:','Or choose an image:'],
+dp_proj:['Nhận ra dự án: {0}','Recognized project: {0}'],dp_go:['Mở dự án này','Open this project'],dp_noproj:['Không nhận ra dự án – chọn dự án ở ô trên, số liệu sẽ hiện ra.','Project not recognized – pick one above to see the figures.'],dp_rc:['Khoản thu nhận dạng: {0} · ngày {1}','Recognized receipt: {0} · date {1}'],dp_conv:[' · đã quy đổi theo tỷ giá chốt {0}',' · converted at locked rate {0}'],dp_noinst:['dự án chưa có đợt nào còn phải thu – hãy tạo đợt trước','no open installment – create one first'],
+dp_terms:['Điều khoản thanh toán: {0}','Payment terms: {0}'],dp_has:['Dự án đã có đợt thanh toán nên không tạo thêm.','Project already has installments; none created.'],dp_mk:['Tạo {0} đợt theo chứng từ','Create {0} installments from document'],dp_sum:['Tổng các đợt mới được {0}% – dán tiếp phần điều khoản còn lại (các lần dán được cộng dồn).','Installments so far total {0}% – paste the remaining terms (pastes are combined).'],tp_qtt:['Quyết toán tạm thời','Interim settlement'],tp_qt:['Quyết toán','Final settlement'],dp_none:['Không nhận ra số tiền hay điều khoản thanh toán','No amount or payment terms recognized'],
 d_xls:['Xuất báo cáo công nợ','Export receivables'],d_xls_done:['Đã xuất {0} đợt thanh toán ra Excel','Exported {0} installments'],d_deli:['Xóa đợt này','Delete installment'],d_deli_q:['Xóa đợt "{0}"?','Delete installment "{0}"?'],d_delrc_q:['Xóa khoản thu {0} ngày {1}?','Delete receipt {0} on {1}?'],d_auto:['Số tiền mỗi đợt = tỷ lệ % × giá trị cơ sở, tự cập nhật khi nhập giá trị quyết toán.','Each installment = % × base value; updates automatically when the settled value is entered.'],d_pctc:['Đã thu {0}%','{0}% collected'],
 lg_deli:['Xóa đợt {0}: {1}','Deleted installment {0}: {1}'],lg_delrc:['Xóa khoản thu {0}: {1}','Deleted receipt {0}: {1}'],lg_due:['Đổi hạn {0}: {1}','Changed due date {0}: {1}'],
 conflict_reload:['Đã tải lại dữ liệu mới nhất từ server','Reloaded latest data from server']};
@@ -255,7 +258,7 @@ ${canP()?`<div class="card"><p class="sec">${t('px_t')}${S.ptext?`<span class="s
 ${dl('dlv',live().map(p=>p.name))}${dl('dlc',live().map(p=>p.client))}${dl('dlk',['VIETNAM',...Object.values(REG).flat(),...live().map(p=>p.country)])}${dl('dls',SURV)}`;
 return`<div class="row" style="justify-content:space-between;margin-bottom:10px"><b style="font-size:15px">${e.id?h(e.code)+' · '+h(e.name):t('new')}</b><button data-a="split">${S.split?t('split_off'):t('split_on')}</button></div>`+(S.split?`<div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px"><div style="position:sticky;top:calc(var(--hh,61px) + 10px);align-self:start;max-height:calc(100vh - var(--hh,61px) - 20px);overflow:auto">${ocrBar}${viewer}</div><div>${body}</div></div>`:body)}
 function debt(){const A=live(),p=A.find(x=>x.id===S.pid);const opts=[...A].sort((a,b)=>(insOf(b).length-insOf(a).length)||(b.start||'').localeCompare(a.start||''));const cd=canD();
-const sel=`<div class="row" style="margin-bottom:14px;flex-wrap:nowrap"><select data-d="pid" style="flex:1;min-width:0"><option value="">${t('d_pick')}</option>${opts.map(x=>`<option value="${x.id}" ${x.id===S.pid?'selected':''}>${h(x.name)} – ${h(x.code)} – ${h(x.client)}</option>`).join('')}</select>${cd?`<button data-a="dxls">⇩ ${t('d_xls')}</button>`:''}</div>`;
+const sel=`<div class="row" style="margin-bottom:14px;flex-wrap:nowrap"><select data-d="pid" style="flex:1;min-width:0"><option value="">${t('d_pick')}</option>${opts.map(x=>`<option value="${x.id}" ${x.id===S.pid?'selected':''}>${h(x.name)} – ${h(x.code)} – ${h(x.client)}</option>`).join('')}</select>${cd?`<button data-a="dxls">⇩ ${t('d_xls')}</button>`:''}</div>`+(cd?dpCard(p):'');
 if(!p){const open=openIN().filter(i=>ist(i)!=='paid').sort((a,b)=>(a.due||'9').localeCompare(b.due||'9'));return sel+`<div class="card"><p class="sec">${t('d_open')} ${chip('paid',open.length)}</p><div class="tblwrap"><table class="t"><colgroup><col style="width:28%"><col style="width:22%"><col style="width:15%"><col style="width:19%"><col style="width:16%"></colgroup><tr><th>${t('d_proj')}</th><th>${t('d_inst')}</th><th>${t('d_due')}</th><th class="num">${t('d_rem')}</th><th>${t('th_status')}</th></tr>${pgSlice('debt',open,30).map(i=>{const q=PR.find(x=>x.id===i.pid);return`<tr><td><span class="lnk" data-a="godebt" data-v="${q.id}">${h(q.name)}</span><div class="mu">${h(q.client)}</div></td><td>${h(i.name)}</td><td>${vn(i.due)||'—'}</td><td class="num">${fc(q,amtI(i)-rcv(i))}</td><td>${chip(ist(i),t('i_'+ist(i)))}</td></tr>`}).join('')}</table></div>${pager('debt',open.length,30)}</div>`}
 const ins=insOf(p),pct=ins.reduce((a,i)=>a+Number(i.pct||0),0),got=base(p)-remain(p),pc=base(p)?Math.max(0,Math.min(100,got/base(p)*100)):0;
 const inst=i=>{const s=ist(i),a=amtI(i);return`<div style="border:1px solid var(--bd);border-radius:var(--r);padding:12px 14px;margin-bottom:10px;font-size:13px">
@@ -293,6 +296,59 @@ function ocrSum(o){const ks=Object.keys(o.res),ok=ks.filter(k=>o.res[k]),no=ks.f
 return(ks.length?(ok.length?`<div class="chip ok msg">✓ ${t('ocr_ok',ok.map(ocrN).join(', '))}</div>`:'')+(no.length?`<div class="chip soon msg">⚠ ${t('ocr_bad',no.map(ocrN).join(', '))}</div>`:''):`<div class="chip paid msg">${t('ocr_none')}</div>`)+`<details style="margin-bottom:8px;font-size:12px"><summary class="mu" style="cursor:pointer">${t('ocr_txt')}</summary><pre style="white-space:pre-wrap;max-height:200px;overflow:auto;background:var(--s1);padding:8px;border-radius:var(--r)">${h(o.text)}</pre></details>`}
 // Tàu đã từng vào dock: điền thông số + chủ tàu của lần gần nhất vào các ô còn trống.
 function histFill(e){const key=vkey(e.name),prev=live().filter(p=>p.vkey===key&&p.id!==e.id).sort((a,b)=>(b.start||'').localeCompare(a.start||''));const last=prev[0];if(!key||!last)return false;['imo','vtype','detail','loa','beam','depth'].forEach(y=>{if(!e[y])e[y]=last[y]});if(!e.client)['client','country','region','contact','email','phone','rep'].forEach(y=>e[y]=last[y]);S.info=t('autofill',prev.length,yr(last));return true}
+// Các số tiền có ghi đơn vị VND / USD (đứng trước hoặc sau số).
+function moneyIn(text){const V=[],re1=/(\d[\d.,]{2,}\d)\s*(VN[DĐ]|đồng|dong|USD|US\$|\$)/gi,re2=/(USD|US\$|\$|VN[DĐ])\s*[:.]?\s*(\d[\d.,]{2,}\d)/gi,cu=s=>/^(VN|đ|d)/i.test(s)?'VND':'USD';let m;
+while((m=re1.exec(text))){const v=pNum(m[1]);if(v>0)V.push({cur:cu(m[2]),v,i:m.index})}while((m=re2.exec(text))){const v=pNum(m[2]);if(v>0)V.push({cur:cu(m[1]),v,i:m.index})}return V.sort((a,b)=>a.i-b.i)}
+// Mọi ngày dd/mm/yyyy, dd.mm.yyyy, dd-mm-yyyy, yyyy-mm-dd, "ngày d tháng m năm y" trong văn bản, theo thứ tự xuất hiện.
+function datesIn(text){const D=[],ok=(d,mo,y)=>{d=+d;mo=+mo;y=+y;return y>1990&&y<2100&&mo>=1&&mo<=12&&d>=1&&d<=lastDay(y,mo)?`${y}-${pad(mo)}-${pad(d)}`:''};let m;
+const R1=/(?<!\d)(\d{1,2})\s*[\/.\-]\s*(\d{1,2})\s*[\/.\-]\s*(\d{4})(?!\d)/g,R2=/(?<!\d)(\d{4})-(\d{2})-(\d{2})(?!\d)/g,R3=/ng[àa]y\s*(\d{1,2})\s*th[áa]ng\s*(\d{1,2})\s*n[ăa]m\s*(\d{4})/gi;
+while((m=R1.exec(text))){const x=ok(m[1],m[2],m[3]);if(x)D.push({d:x,i:m.index})}while((m=R2.exec(text))){const x=ok(m[3],m[2],m[1]);if(x)D.push({d:x,i:m.index})}while((m=R3.exec(text))){const x=ok(m[1],m[2],m[3]);if(x)D.push({d:x,i:m.index})}return D.sort((a,b)=>a.i-b.i)}
+// Điều khoản HĐ chia theo đoạn "Đợt 1:", "Đợt 2:"… (mẫu HĐ sửa chữa PVSM). Mỗi đoạn lấy % đầu tiên;
+// "đến 70% … (bao gồm tạm ứng 20% Đợt 1)" là lũy kế → trừ các đợt trước; đoạn cuối không có % = phần quyết toán còn lại.
+const TPK=[[/quy[ếe]t\s*to[áa]n\s*t[ạa]m\s*th[ờo]i|interim\s*settlement/i,'tp_qtt'],[/quy[ếe]t\s*to[áa]n|final\s*settlement/i,'tp_qt'],[/t[ạa]m\s*[ứu]ng|advance|down\s*payment|deposit|đ[ặa]t\s*c[ọo]c/i,'tp_adv'],[/nghi[ệe]m\s*thu|b[àa]n\s*giao|deliver|complet|ho[àa]n\s*th[àa]nh|undock|r[ờo]i\s*(kh[ỏo]i\s*)?dock/i,'tp_acc'],[/b[ảa]o\s*h[àa]nh|warrant|retention/i,'tp_war']];
+const NOPCT=/vat|gtgt|thu[ếe]|\btax|ph[ạa]t|l[ãa]i\s*su[ấa]t|interest|penalt|chi[ếe]t\s*kh[ấa]u|discount/i;
+function termBlocks(text){const H=/(?:^|\n)[ \t\-•*]*(?:đ[ợơo]t|dot|installment|phase|l[ầa]n\s*thanh\s*to[áa]n)\s*(?:th[ứu]\s*)?(\d{1,2})\b\s*[:.)\-–]?/gi,hs=[];let m,want=0;
+while((m=H.exec(text))){const k=+m[1];if(!hs.length?k>=1&&k<=3:k===want){hs.push(m);want=k+1}}if(!hs.length)return null;
+const T=[];let sum=0;hs.forEach((m,j)=>{const body=text.slice(m.index+m[0].length,j+1<hs.length?hs[j+1].index:text.length),head=body.slice(0,220);
+const pm=[...body.matchAll(/(\d{1,3}(?:[.,]\d+)?)\s*%/g)].filter(x=>!NOPCT.test(body.slice(Math.max(0,x.index-25),x.index)));
+let kw=null,ki=1e9;TPK.forEach(([re,k])=>{const i=head.search(re);if(i>=0&&i<ki){ki=i;kw=k}});
+let pct=null;if(pm[0]){pct=parseFloat(pm[0][1].replace(',','.'));const pre=body.slice(Math.max(0,pm[0].index-30),pm[0].index),post=body.slice(pm[0].index,pm[0].index+220);
+if(/(đ[ếe]n|l[ũu]y\s*k[ếe]|up\s*to|cumulative|t[ổo]ng\s*c[ộo]ng)\s*$/i.test(pre)||/(bao\s*g[ồo]m|including)[^%]{0,60}(t[ạa]m\s*[ứu]ng|đ[ợơ]t|advance|installment)/i.test(post))pct=Math.round((pct-sum)*100)/100}
+else if(j===hs.length-1&&sum>0&&sum<100){pct=Math.round((100-sum)*100)/100;kw='tp_qt'}
+if(!(pct>0&&pct<=100))return;sum+=pct;const dd=datesIn(body)[0];T.push({name:(lang==='vi'?'Đợt ':'Installment ')+m[1]+(kw?' – '+t(kw):''),pct,due:dd?dd.d:''})});return T.length?T:null}
+// ---- Công nợ: dán text / ảnh chứng từ thanh toán (báo có, UNC, điều khoản HĐ) → nhận dạng dự án, khoản thu, các đợt ----
+function debtExtract(text){const x={pid:null,rc:null,terms:[]},K=vkey(text);
+let best=null;live().forEach(p=>{let s=0;if(p.vkey&&p.vkey.length>=4&&K.includes(p.vkey))s=p.vkey.length;const cn=vkey(p.contractNo);if(cn.length>=4&&K.includes(cn))s+=100;if(!s)return;if(insOf(p).some(i=>ist(i)!=='paid'))s+=0.5;if(!best||s>best.s||(s===best.s&&(p.start||'')>(best.p.start||'')))best={s,p}});if(best)x.pid=best.p.id;
+const tb=termBlocks(text);if(tb){x.terms=tb;x.block=true}else{
+// Điều khoản: các tỷ lệ % (bỏ VAT, thuế, phạt, lãi). Mỗi % lấy phần chữ quanh nó để đặt tên đợt và hạn.
+let n=0;text.split(/\r?\n|;/).forEach(seg=>{const ms=[...seg.matchAll(/(\d{1,3}(?:[.,]\d+)?)\s*%/g)];ms.forEach((m,j)=>{let b=seg.slice(j?ms[j-1].index+ms[j-1][0].length:0,m.index);const cut=b.lastIndexOf(',');if(cut>=0)b=b.slice(cut+1);let a=seg.slice(m.index,j+1<ms.length?ms[j+1].index:seg.length);const ac=a.search(/,\s*[^,]*$/);if(j+1<ms.length&&ac>0)a=a.slice(0,ac);const ctx=b+a;
+if(/vat|thu[ếe]|\btax|ph[ạa]t|l[ãa]i\s*su[ấa]t|interest|penalt|chi[ếe]t\s*kh[ấa]u|discount/i.test(b+m[0]))return;const pct=parseFloat(m[1].replace(',','.'));if(!(pct>0&&pct<=100))return;n++;
+const name=/t[ạa]m\s*[ứu]ng|advance|down\s*payment|deposit|đ[ặa]t\s*c[ọo]c/i.test(ctx)?t('tp_adv'):/b[ảa]o\s*h[àa]nh|warrant|retention/i.test(ctx)?t('tp_war'):/nghi[ệe]m\s*thu|b[àa]n\s*giao|deliver|complet|ho[àa]n\s*th[àa]nh|undock|ra\s*dock/i.test(ctx)?t('tp_acc'):(lang==='vi'?'Đợt ':'Installment ')+n;const dd=datesIn(ctx)[0];x.terms.push({name,pct,due:dd?dd.d:''})})});
+const sum=x.terms.reduce((a,r)=>a+r.pct,0);if(x.terms.length<2||sum>100.5)x.terms=[]}
+x.tsum=Math.round(x.terms.reduce((a,r)=>a+r.pct,0)*100)/100;
+// Khoản thu: số tiền có nhãn (số tiền, ghi có, amount…) hoặc số tiền có đơn vị lớn nhất; ngày giao dịch hoặc ngày đầu tiên không ở tương lai.
+const strong=/ghi\s*c[óo]|b[áa]o\s*c[óo]|credit|received|đ[ãa]\s*nh[ậa]n|nh[ậa]n\s*ti[ềe]n|chuy[ểe]n\s*kho[ảa]n|giao\s*d[ịi]ch|transaction|remittance|ủy\s*nhi[ệe]m\s*chi|unc\b/i.test(text);
+if(strong||!x.terms.length){const lm=text.match(/(?:s[ốo]\s*ti[ềe]n(?:\s*giao\s*d[ịi]ch|\s*ghi\s*c[óo]|\s*thanh\s*to[áa]n)?|ghi\s*c[óo]|ps\s*c[óo]|amount|credit(?:\s*amount)?)[^\d\n]{0,25}(\d[\d.,]{2,}\d)([^\n]{0,12})/i);let rc=null;
+if(lm&&pNum(lm[1])>0){const c=/VN[DĐ]|đồng|dong/i.test(lm[0])?'VND':/USD|\$/i.test(lm[0])?'USD':'';rc={v:pNum(lm[1]),cur:c}}else{const V=moneyIn(text);if(V.length){const b=[...V].sort((a,c)=>(c.cur==='USD'?c.v*S.rate:c.v)-(a.cur==='USD'?a.v*S.rate:a.v))[0];rc={v:b.v,cur:b.cur}}}
+if(rc){const lb=text.match(/(?:ng[àa]y\s*(?:giao\s*d[ịi]ch|h[ạa]ch\s*to[áa]n|hi[ệe]u\s*l[ựu]c|ghi\s*c[óo]|chuy[ểe]n)|value\s*date|transaction\s*date|posting\s*date|ng[àa]y|date)/i),Ds=datesIn(text);let dd=lb?datesIn(text.slice(lb.index,lb.index+60))[0]:null;if(!dd)dd=Ds.find(z=>z.d<=TD)||Ds[0];rc.date=dd?dd.d:'';x.rc=rc}}
+return x}
+const dpAmt=(p,rc)=>Math.round((!rc.cur||rc.cur===p.cur?rc.v:p.cur==='VND'?rc.v*p.rate:rc.v/p.rate)*100)/100;
+function dpCard(p){const d=S.dp||{},x=d.x;let out='';
+if(d.busy)out=`<div class="chip run msg">⏳ ${t('ocr_busy')}</div>`;
+else if(x){const q=x.pid&&PR.find(y=>y.id===x.pid),P=[];
+if(q&&(!p||q.id!==p.id))P.push(`<div class="chip soon msg">${t('dp_proj',h(q.name+' · '+q.code+' · '+q.client))} <button data-a="dpgo" data-v="${q.id}" style="margin-left:6px">${t('dp_go')}</button></div>`);else if(!q&&!p)P.push(`<div class="chip paid msg">${t('dp_noproj')}</div>`);
+if(p){if(x.rc){const open=insOf(p).filter(i=>ist(i)!=='paid'),amt=dpAmt(p,x.rc);
+if(open.length){const near=open.find(i=>Math.abs(amtI(i)-rcv(i)-amt)<=Math.max(1,amt*0.005)),def=(near||[...open].sort((a,b)=>(a.due||'9').localeCompare(b.due||'9'))[0]).id;
+P.push(`<div class="chip ok msg">${t('dp_rc',x.rc.cur?nf(x.rc.v,2)+' '+x.rc.cur:nf(x.rc.v,2),vn(x.rc.date)||'?')}${x.rc.cur&&x.rc.cur!==p.cur?t('dp_conv',nf(p.rate)):''}<div class="row" style="margin-top:8px"><input type="date" id="dpd" value="${h(x.rc.date||TD)}" style="width:150px"><input type="number" id="dpa" value="${amt}" style="width:170px"><select id="dpi" style="min-width:0;max-width:100%">${open.map(i=>`<option value="${i.id}" ${i.id===def?'selected':''}>${h(i.name)} – ${t('d_rem')} ${fc(p,amtI(i)-rcv(i))}</option>`).join('')}</select><button class="pri" data-a="dprc">${t('d_rec')}</button></div></div>`)}
+else P.push(`<div class="chip soon msg">${t('dp_rc',nf(x.rc.v,2)+' '+(x.rc.cur||''),vn(x.rc.date)||'?')} · ${t('dp_noinst')}</div>`)}
+if(x.terms.length)P.push(`<div class="chip run msg">${t('dp_terms',x.terms.map(r=>`${h(r.name)} ${nf(r.pct,2)}%${r.due?' ('+t('d_due')+' '+vn(r.due)+')':''}`).join(' · '))}<br>${Math.abs(x.tsum-100)>0.5?`<span style="opacity:.85">${t('dp_sum',nf(x.tsum,2))}</span>`:insOf(p).length?`<span style="opacity:.85">${t('dp_has')}</span>`:`<button data-a="dpterms" style="margin-top:6px">${t('dp_mk',x.terms.length)}</button>`}</div>`);
+if(!x.rc&&!x.terms.length)P.push(`<div class="chip paid msg">${t('dp_none')}</div>`)}
+out=P.join('')}
+return`<div class="card"><p class="sec">${t('dp_t')}${d.text?`<span class="sp"></span><span class="lnk" data-a="dpclear" style="font-size:12.5px;font-weight:500">${t('px_clr')}</span>`:''}</p><textarea data-dpaste="1" rows="${d.text?4:2}" style="width:100%;font-size:12.5px;resize:vertical" placeholder="${t('dp_ph')}">${h(d.text||'')}</textarea><div class="row" style="margin-top:6px;font-size:12.5px;color:var(--tx2)">${t('dp_img')}<input type="file" accept="image/*" data-a2="dimg" style="height:auto;width:auto"></div>${out?`<div style="margin-top:10px">${out}</div>`:''}</div>`}
+function dpFill(text){const x=text.trim()?debtExtract(text):null;S.dp={text,x};if(x&&x.pid&&!S.pid)S.pid=x.pid;render();const b=R.querySelector('[data-dpaste]');if(b&&text){b.focus();b.selectionStart=b.selectionEnd=b.value.length}}
+// Các lần dán / chụp được cộng dồn (điều khoản HĐ thường phải chụp nhiều ảnh), bấm "Xóa" để làm lại.
+const dpJoin=(a,b)=>a&&a.trim()?a.replace(/\s+$/,'')+'\n'+b:b;
+async function dpOcr(file){if(!file||!/^image\//.test(file.type))return;const prev=S.dp&&S.dp.text||'';S.dp={busy:true,text:prev};render();try{await loadT();const w=await Tesseract.createWorker(['vie','eng']);const{data}=await w.recognize(file);await w.terminate();dpFill(dpJoin(prev,data.text||''))}catch(e){S.dp=null;S.toast=t('ocr_err',e.message||e);render()}}
 // Đọc thông tin dự án từ văn bản OCR (hợp đồng, báo giá, tóm tắt tàu…). Chỉ trả về những gì nhận ra chắc chắn.
 function ocrExtract(text){const o={},Ls=text.split(/\r?\n/).map(s=>s.replace(/\s+/g,' ').trim()).filter(Boolean),fl=s=>parseFloat(String(s).replace(',','.'));
 let m=text.match(/[-–—=_*]{2,}\s*([A-Z0-9][A-Z0-9 .'&-]{1,40}?)\s*[-–—=_*]{2,}/)||text.match(/\b(?:M\/V|M\.V\.|MV|M\/T|MT)\s+["“']?([A-Z0-9][A-Z0-9 .'-]{2,40})/)||text.match(/(?:t[êe]n\s*t[àa]u|vessel'?s?\s*name|name\s*of\s*(?:vessel|ship|project))\s*[:：]\s*["“']?([^\n"”']{2,40})/i);
@@ -302,8 +358,7 @@ if((m=text.match(/\b(\d{1,4}\s*\/\s*[\w.\-\/]*?PVSM[\w.\-\/]*\w)/i)||text.match(
 const okD=(d,mo,y)=>{d=+d;mo=+mo;y=+y;return y>1990&&y<2100&&mo>=1&&mo<=12&&d>=1&&d<=lastDay(y,mo)?`${y}-${pad(mo)}-${pad(d)}`:''};
 if((m=text.match(/(?:ng[àa]y|dated?)\s*[:.]?\s*(\d{1,2})\s*[\/.\-]\s*(\d{1,2})\s*[\/.\-]\s*(\d{4})/i)||text.match(/ng[àa]y\s*(\d{1,2})\s*th[áa]ng\s*(\d{1,2})\s*n[ăa]m\s*(\d{4})/i))&&okD(m[1],m[2],m[3]))o.signDate=okD(m[1],m[2],m[3]);
 // Giá trị hợp đồng: số đi kèm VND / USD (trước hoặc sau), lấy giá trị lớn nhất quy ra USD.
-const V=[],re1=/(\d[\d.,]{2,}\d)\s*(VN[DĐ]|đồng|dong|USD|US\$|\$)/gi,re2=/(USD|US\$|\$|VN[DĐ])\s*[:.]?\s*(\d[\d.,]{2,}\d)/gi,cu=s=>/^(VN|đ|d)/i.test(s)?'VND':'USD';
-while((m=re1.exec(text))){const v=pNum(m[1]);if(v>0)V.push({cur:cu(m[2]),v})}while((m=re2.exec(text))){const v=pNum(m[2]);if(v>0)V.push({cur:cu(m[1]),v})}
+const V=moneyIn(text);
 if(V.length){const b=V.sort((a,c)=>(c.cur==='USD'?c.v*S.rate:c.v)-(a.cur==='USD'?a.v*S.rate:a.v))[0];o.value=b.v;o.cur=b.cur}
 // Kích thước: "254,62 x 43 x 19,39m" hoặc nhãn LOA / Beam / Depth.
 const N='(\\d{1,3}(?:[.,]\\d{1,2})?)',X='\\s*m?\\s*[xX×*]\\s*';
@@ -394,7 +449,7 @@ if(rows.length)body+=tot('TOTAL',S.sub?'='+subs.map(x=>'R'+x+'C').join('+'):`=SU
 const xml=`<?xml version="1.0" encoding="UTF-8"?><?mso-application progid="Excel.Sheet"?><Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">${st}<Worksheet ss:Name="Track Record"><Table>${cs.map(c=>`<Column ss:Width="${c.w}"/>`).join('')}${body}</Table><WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel"><FreezePanes/><FrozenNoSplit/><SplitHorizontal>3</SplitHorizontal><TopRowBottomPane>3</TopRowBottomPane></WorksheetOptions></Worksheet></Workbook>`;
 dl(`Track_Record_${TD}.xls`,xml,'application/vnd.ms-excel');S.toast=t('xls_done',rows.length,sec);render()}
 R.addEventListener('click',ev=>{const b=ev.target.closest('[data-a]');if(!b||b.closest('fieldset[disabled]'))return;const a=b.dataset.a,v=b.dataset.v;S.hold=false;if(a==='tab')S.toast='';
-if(['tab','new','edit','cancel','godebt','showbad'].includes(a)){S.ptext='';S.fill=null}
+if(['tab','new','edit','cancel','godebt','showbad'].includes(a)){S.ptext='';S.fill=null;S.dp=null}
 if(a==='reload'){S.loadErr='';render();return boot()}
 if(a==='resync'){persist();return}
 if(a==='logout'){fetch('/api/auth/logout',{method:'POST'}).finally(()=>location.href='/login');return}
@@ -417,6 +472,10 @@ else if(a==='ocr')return runOcr();
 else if(a==='ocrf'){S.view=+v;S.split=true;window.scrollTo(0,0);return runOcr()}
 else if(a==='fillover'){const o=S.fill;if(!o||o.e!==S.edit)return;o.conf.forEach(k=>S.edit[k]=o.ex[k]);if(o.conf.includes('value')&&o.ex.cur)S.edit.cur=o.ex.cur;o.filled=o.filled.concat(o.conf);o.conf=[];const oc=ocrNow();if(oc&&oc.res)oc.res=ocrCheck(S.edit,oc.text)}
 else if(a==='pclear'){S.ptext='';S.fill=null}
+else if(a==='dpclear')S.dp=null;
+else if(a==='dpgo')S.pid=+v;
+else if(a==='dprc'){const i=IN.find(x=>x.id===+$('dpi').value),amt=+$('dpa').value,dt=$('dpd').value;if(!i||!(amt>0)||!dt){S.toast=t('d_rerr');return render()}const p=PR.find(x=>x.id===i.pid);i.rc.push({date:dt,amt});log('lg_rc',p.code+' / '+i.name,fc(p,amt)+' '+vn(dt));S.toast=t('d_recd',fc(p,amt));S.dp=null}
+else if(a==='dpterms'){const p=PR.find(x=>x.id===S.pid),x=S.dp&&S.dp.x;if(!p||!x||insOf(p).length)return;x.terms.forEach(r=>{IN.push({id:nid(),pid:p.id,name:r.name,pct:r.pct,amount:Math.round(base(p)*r.pct)/100,due:r.due||'',plan:'',planDate:'',rc:[]});log('lg_inst',p.code,r.name+' '+r.pct+'%')});x.terms=[]}
 else if(a==='dxls')return debtXls();
 else if(a==='deli'){const i=IN.find(x=>x.id===+v),p=PR.find(x=>x.id===i.pid);if(!confirm(t('d_deli_q',i.name)))return;IN=IN.filter(x=>x!==i);log('lg_deli',p.code,i.name+' '+nf(i.pct,2)+'%')}
 else if(a==='delrc'){const[iid,j]=v.split(':').map(Number),i=IN.find(x=>x.id===iid),p=PR.find(x=>x.id===i.pid),r=i.rc[j];if(!r||!confirm(t('d_delrc_q',fc(p,r.amt),vn(r.date))))return;i.rc.splice(j,1);log('lg_delrc',p.code+' / '+i.name,fc(p,r.amt)+' '+vn(r.date))}
@@ -441,6 +500,7 @@ else if(a==='purge'){if(!confirm(t('a_purge_q')))return;const p=PR.find(x=>x.id=
 render()});
 R.addEventListener('input',ev=>{const x=ev.target;
 if(x.dataset.imp){S.imp.text=x.value;return}
+if(x.dataset.dpaste){S.dp=Object.assign(S.dp||{},{text:x.value});clearTimeout(S.pt);if(ev.inputType==='insertFromPaste'||ev.inputType==='insertFromDrop')dpFill(x.value);else S.pt=setTimeout(()=>dpFill(x.value),700);return}
 if(x.dataset.paste){S.ptext=x.value;clearTimeout(S.pt);if(ev.inputType==='insertFromPaste'||ev.inputType==='insertFromDrop')pasteFill(x.value);else S.pt=setTimeout(()=>pasteFill(x.value),700);return}
 if(x.dataset.f!==undefined){S.f[x.dataset.f]=x.type==='checkbox'?(x.checked?'1':''):x.value;S.page=0;clearTimeout(S.ft);if(x.dataset.f==='q')S.ft=setTimeout(refreshTbl,160);else refreshTbl();return}
 if(x.dataset.k&&S.edit){const k=x.dataset.k;S.edit[k]=x.type==='checkbox'?x.checked:x.value;if(S.errs[k]){delete S.errs[k];x.classList.remove('bad')}const oc=ocrNow();if(oc&&oc.res){oc.res=ocrCheck(S.edit,oc.text);x.classList.remove('okf','wf');const c=ocrC(k);if(c)x.classList.add(c)}const c=$('calc');if(c)c.innerHTML=calc()}});
@@ -449,6 +509,7 @@ if(x.dataset.urole){userPatch(x.dataset.urole,{role:x.value});return}
 if(x.dataset.a2==='xls'){readXls(x.files);return}
 if(x.dataset.c){if(x.dataset.c==='_sub')S.sub=x.checked;else csel[x.dataset.c]=x.checked;return}
 if(x.dataset.fc!==undefined){S.edit.files[+x.dataset.fc].cat=x.value;return}
+if(x.dataset.a2==='dimg'){dpOcr(x.files[0]);return}
 if(x.dataset.a2==='file'){[...x.files].forEach(f=>addFile(f));return}
 if(x.dataset.a2==='bk'){const f=x.files[0];if(!f)return;f.text().then(async txt=>{let o;try{o=JSON.parse(txt);if(!Array.isArray(o.PR))throw 0}catch(e){S.toast=t('a_bad');return render()}if(!confirm(t('a_restore_q')))return;try{await restore(o)}catch(e){S.toast=e.message;render()}});return}
 if(x.dataset.due){const i=IN.find(y=>y.id===+x.dataset.due),p=PR.find(y=>y.id===i.pid);if(i.due!==x.value){log('lg_due',p.code+' / '+i.name,(vn(i.due)||'—')+' → '+(vn(x.value)||'—'));i.due=x.value}render();return}
@@ -463,9 +524,10 @@ R.addEventListener('dragover',ev=>{if(ev.target.closest('#drop,#xdrop'))ev.preve
 R.addEventListener('drop',ev=>{if(!canP())return;if(ev.target.closest('#xdrop')){ev.preventDefault();readXls(ev.dataTransfer.files);return}if(!ev.target.closest('#drop'))return;ev.preventDefault();[...ev.dataTransfer.files].forEach(f=>addFile(f,true))});
 // Dán trên form dự án: có chữ (copy từ Word, email, PDF…) → nhận dạng và tự điền; chỉ có ảnh (chụp màn hình) → đính kèm rồi OCR tự điền.
 // Word luôn kèm thêm một ảnh của đoạn đã copy, nên khi có chữ thì dùng chữ, không đính kèm ảnh đó.
-document.addEventListener('paste',ev=>{if(S.tab!=='proj'||!S.edit||!canP())return;const cd=ev.clipboardData;if(!cd)return;const tx=cd.getData('text/plain')||'',tg=ev.target,inBox=!!(tg&&tg.dataset&&tg.dataset.paste),inField=!inBox&&!!(tg&&tg.closest&&tg.closest('input,textarea,select'));
-if(tx.trim()){if(inBox||inField)return;ev.preventDefault();pasteFill(tx);return}
-const it=[...(cd.items||[])].filter(x=>x.kind==='file');if(!it.length)return;ev.preventDefault();it.forEach(x=>addFile(x.getAsFile(),true))});
+// Tab Công nợ: tương tự, chữ → nhận dạng khoản thu / đợt thanh toán, ảnh → OCR rồi nhận dạng (ảnh không lưu lại).
+document.addEventListener('paste',ev=>{const pj=S.tab==='proj'&&S.edit&&canP(),db=S.tab==='debt'&&canD()&&!S.pw&&!ME.mustChange;if(!pj&&!db)return;const cd=ev.clipboardData;if(!cd)return;const tx=cd.getData('text/plain')||'',tg=ev.target,inBox=!!(tg&&tg.dataset&&(tg.dataset.paste||tg.dataset.dpaste)),inField=!inBox&&!!(tg&&tg.closest&&tg.closest('input,textarea,select'));
+if(tx.trim()){if(inBox||inField)return;ev.preventDefault();pj?pasteFill(tx):dpFill(dpJoin(S.dp&&S.dp.text,tx));return}
+const it=[...(cd.items||[])].filter(x=>x.kind==='file');if(!it.length)return;ev.preventDefault();if(pj)it.forEach(x=>addFile(x.getAsFile(),true));else dpOcr(it[0].getAsFile())});
 async function readXls(list){if(!list||!list.length||!S.imp)return;S.imp.busy=true;S.imp.rows=null;render();try{const r=await impFiles(list);Object.assign(S.imp,r,{busy:false})}catch(e){S.imp.busy=false;S.toast=e.message}render()}
 // Tải lại dữ liệu khi quay lại tab trình duyệt (để thấy thay đổi của người khác), nếu không đang sửa dở.
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState!=='visible'||!S.ready||S.edit||S.imp||inflight||diffs())return;loadState().then(ch=>{if(ch)render()},()=>{})});
