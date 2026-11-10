@@ -95,6 +95,9 @@ details.adv summary::-webkit-details-marker{display:none}
 
 /* ===== Misc ===== */
 .lnk{cursor:pointer;color:var(--ac);font-weight:500}.lnk:hover{text-decoration:underline}
+/* Cả dòng / cả thẻ bấm được, không chỉ phần tên */
+.clk{cursor:pointer}.clk:hover .lnk{text-decoration:underline}
+div.clk{border-radius:6px;padding:2px 4px;margin-left:-4px!important;margin-right:-4px!important}div.clk:hover{background:color-mix(in srgb,var(--acbg) 60%,transparent)}
 .mu{color:var(--mu);font-size:12px}
 .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .sp{flex:1}
