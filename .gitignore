@@ -1,0 +1,9 @@
+node_modules
+.next
+.env*.local
+.env
+.vercel
+
+# Tài liệu gốc / bản HTML cũ – không đưa lên git
+Mo_ta_yeu_cau_ky_thuat_Tao_Web_Track_Record_v2.docx
+pvsm-track-record.html

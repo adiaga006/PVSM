@@ -54,7 +54,7 @@ File `.env` đã nằm trong `.gitignore` nên **không bị đẩy lên GitHub*
 
 ### 2. GitHub → Vercel (tự deploy)
 
-1. Đẩy code lên GitHub (thư mục `web/` này chính là gốc của repo):
+1. Đẩy code lên GitHub (thư mục này chính là gốc của repo):
    ```bash
    git init
    git add .
@@ -63,8 +63,7 @@ File `.env` đã nằm trong `.gitignore` nên **không bị đẩy lên GitHub*
    git remote add origin https://github.com/<tài-khoản>/<repo>.git
    git push -u origin main
    ```
-2. Vào [vercel.com/new](https://vercel.com/new) → **Import** repo vừa đẩy. Vercel tự nhận Next.js.
-   - Nếu repo chứa cả thư mục cha `PVSM/`, đặt **Root Directory = `web`**.
+2. Vào [vercel.com/new](https://vercel.com/new) → **Import** repo vừa đẩy. Vercel tự nhận Next.js. Để **Root Directory** trống (gốc repo). Nếu project Vercel cũ đang đặt Root Directory = `web`, vào **Settings → Build and Deployment** xóa giá trị này.
 3. **Environment Variables**: thêm các biến như trong `.env`: `SANITY_PROJECT_ID`, `SANITY_DATASET`, `SANITY_API_TOKEN`, `AUTH_SECRET`, `ADMIN_NAME`, `ADMIN_PASSWORD_HASH`. Mẹo: ở màn hình Environment Variables có thể dán cả nội dung file `.env` một lần.
 4. **Deploy**. Từ giờ mỗi lần `git push` lên `main`, Vercel tự deploy lại.
 

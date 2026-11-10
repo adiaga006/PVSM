@@ -63,12 +63,13 @@ header{position:sticky;top:0;z-index:20;display:flex;flex-wrap:wrap;gap:10px;ali
 /* ===== Table ===== */
 table.t{width:100%;border-collapse:separate;border-spacing:0;font-size:13px;table-layout:fixed}
 .t th,.t td{border-bottom:1px solid var(--bd);padding:9px 8px;text-align:left;vertical-align:top;overflow:hidden;text-overflow:ellipsis}
-.t th{color:var(--tx2);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.03em;background:var(--s1);position:sticky;top:61px;z-index:1}
+.t th{color:var(--tx2);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.03em;background:var(--s1);position:sticky;top:var(--hh,61px);z-index:1}
 .t th:first-child{border-top-left-radius:var(--r)}.t th:last-child{border-top-right-radius:var(--r)}
 .t tr:hover td{background:color-mix(in srgb,var(--acbg) 45%,transparent)}
 .t tr:last-child td{border-bottom:0}
 .num{text-align:right!important}
-.tblwrap{overflow-x:auto}
+/* overflow-x:auto biến .tblwrap thành khung cuộn → th sticky bị đẩy xuống 61px đè lên dòng đầu. clip không tạo khung cuộn. */
+.tblwrap{overflow-x:clip}
 
 /* ===== Chips & messages ===== */
 .chip{font-size:12px;font-weight:500;padding:2px 9px;border-radius:999px;white-space:nowrap;display:inline-block;line-height:1.6}
